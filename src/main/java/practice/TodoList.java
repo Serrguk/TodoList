@@ -16,7 +16,7 @@ public class TodoList {
             try {
                 todoList.add(index, todo);
             } catch (IndexOutOfBoundsException exception) {
-                System.out.println("Добавление невозможно, указанного индекса не существует");
+                System.out.println("Добавление невозможно, указанного номера не существует");
             }
         }
     }
@@ -26,7 +26,7 @@ public class TodoList {
             todoList.remove(index);
             todoList.add(index, todo);
         } catch (IndexOutOfBoundsException exception) {
-            System.out.println("Замена невозможна, указанного индекса не существует");
+            System.out.println("Замена невозможна, указанного номера не существует");
         }
     }
 
@@ -34,12 +34,11 @@ public class TodoList {
         try {
             todoList.remove(index);
         } catch (IndexOutOfBoundsException exception) {
-            System.out.println("Удаление невозможно, указанного индекса не существует");
+            System.out.println("Удаление невозможно, указанного номера не существует");
         }
     }
 
     public ArrayList<String> getTodos() {
         return todoList;
     }
-
 }

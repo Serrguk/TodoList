@@ -3,63 +3,34 @@ package practice;
 import java.util.Scanner;
 
 public class Main {
-    private static final TodoList todoList = new TodoList();
+    public static final TodoList TODO_LIST = new TodoList();
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Вас приветствует список дел! Перечень возможных команд:\n " +
                 "\t1 - добавление дела в конец списка;\n" +
-                "\t2 - добавление дела на указанный индекс;\n" +
-                "\t3 - замена дела на новое в указанном индексе;\n" +
-                "\t4 - удаление дела с указанным индексом;\n" +
+                "\t2 - добавление дела на указанный номер;\n" +
+                "\t3 - замена дела на новое по указанному номеру;\n" +
+                "\t4 - удаление дела с указанным номером;\n" +
                 "\t5 - вывод списка всех дел.\n" +
                 "Для управления списком нажимайте соответствующие цифры.\n" +
                 "Для завершения работы нажмите 0.");
-        Scanner scanner = new Scanner(System.in);
+
+        Listener listener = new Listener();
+
         while (true) {
             String input = scanner.nextLine();
-            int index;
             if (input.equals("0")) {
-                scanner.close();
                 break;
-            }
-            switch (input) {
-                case "1" -> {
-                    System.out.println("Введите дело для добавления: ");
-                    input = scanner.nextLine();
-                    todoList.add(input);
-                }
-                case "2" -> {
-                    System.out.println("Введите индекс, на который нужно добавить дело: ");
-                    index = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Введите дело для добавления: ");
-                    input = scanner.nextLine();
-                    todoList.add(index, input);
-                }
-                case "3" -> {
-                    System.out.println("Введите индекс дела, которое требуется заменить: ");
-                    index = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Введите дело для замены: ");
-                    input = scanner.nextLine();
-                    todoList.edit(index, input);
-                }
-                case "4" -> {
-                    System.out.println("Введите индекс дела, которое требуется удалить: ");
-                    index = Integer.parseInt(scanner.nextLine());
-                    todoList.delete(index);
-                }
-                case "5" -> {
-                    int count = 0;
-                    if (todoList.getTodos().isEmpty()) {
-                        System.out.println("Список пуст!");
-                    } else {
-                        for (String s : todoList.getTodos()) {
-                            System.out.printf("%d) - %s\n", count, s);
-                            count++;
-                        }
-                    }
+            } else {
+                try {
+                    listener.listen(TODO_LIST, input);
+                } catch (IllegalArgumentException exception) {
+                    System.out.println("Некорректно введённый номер дела!");
                 }
             }
-            System.out.println("1 - добавление, 2 - добавление с индексом, 3 - замена, 4 - удаление, 5 - вывод, 0 - выход");
+            System.out.println("1 - добавление, 2 - добавление на номер, " +
+                    "3 - замена, 4 - удаление, 5 - вывод, 0 - выход");
         }
     }
 }
