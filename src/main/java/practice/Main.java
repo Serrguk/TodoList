@@ -3,7 +3,7 @@ package practice;
 import java.util.Scanner;
 
 public class Main {
-    public static final TodoList TODO_LIST = new TodoList();
+    public static TodoList todoList = new TodoList();
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class Main {
                 break;
             } else {
                 try {
-                    listener.listen(TODO_LIST, input);
+                    listener.listen(todoList, input);
                 } catch (IllegalArgumentException exception) {
                     System.out.println("Некорректно введённый номер дела!");
                 }
